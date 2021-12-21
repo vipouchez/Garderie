@@ -2,6 +2,7 @@ package dao;
 
 import models.Student;
 
+import java.sql.*;
 import java.util.List;
 
 
@@ -31,9 +32,17 @@ public class StudentDao   {
     }
 
     public Student save(Student s){
-               //todo
-        return null;
-            }
+        String sql = String.format("INSERT INTO `entity`(`first_name`, `last_name`, `father_name`) VALUES ('%s','%s','%s')",s.getFirstName(), s.getLastName(), s.getFatherName() );
+        try(Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/garderie", "root", "");
+            Statement stmt = conn.createStatement();
+            ) {
+            stmt.execute(sql);
+            // Extract data from result set
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return s;
+    }
 
 
 
