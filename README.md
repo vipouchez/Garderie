@@ -1,2 +1,0 @@
-# garderie
-Project for school 
