@@ -7,8 +7,6 @@ public class Student extends Entity{
     private String grandFatherName;
     private String fatherCin;
     private String fatherPhoneNumber;
-    
-
 
     public Student(){
         super();
