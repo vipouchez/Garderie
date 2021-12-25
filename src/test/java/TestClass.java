@@ -1,16 +1,38 @@
 import dao.StudentDao;
 import models.Student;
-import services.StudentService;
 
 public class TestClass {
 
-    public static void main(String[] args) {
-        StudentDao dao = StudentDao.getInstance();
+    public static void main(String[] args) throws Exception  {
+       /* StudentDao dao = StudentDao.getInstance();
         Student s = new Student();
-        s.setFirstName("ayoub_java");
-        s.setLastName("hmama_java");
-        s.setFatherName("fathi_java");
-        dao.save(s);
+        s.setFirstName("adem");
+        s.setLastName("hmama");
+        s.setFatherName("fathi");
+        s.setBirthday(LocalDate.now());
+        dao.save(s);*/
+
+
+        /*StudentDao dao = StudentDao.getInstance();
+        List<Student> all = dao.findAll();
+        for(Student s : all ){
+            System.out.println(s);
+            System.out.println("============================");
+        }
+        */
+
+        /*StudentDao dao = StudentDao.getInstance();
+        Student s = dao.findById(3);
+        System.out.println("return student: " + s);
+*/
+
+        StudentDao dao = StudentDao.getInstance();
+        Student  s = dao.findById(2);
+        s.setFirstName("tounis");
+        s.setMotherName("bounes");
+        dao.update(s);
     }
+
+
 
 }

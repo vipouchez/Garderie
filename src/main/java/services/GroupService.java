@@ -37,13 +37,13 @@ public class GroupService {
         groupDao.save(group);
     }
 
-    public List<Group> getGroups(){
+    public List<Group> getGroups() throws Exception {
         return groupDao.findAll();
     }
 
 
 
-    public void removeStudentFromGroup(String studentId, String groupName){
+    public void removeStudentFromGroup(int studentId, String groupName){
         Student s = studentService.getStudent(studentId);
         Group g = groupDao.findById(groupName);
 
@@ -64,7 +64,7 @@ public class GroupService {
 
 
 
-    public void addStudentToGroup(String studentId, String groupName) {
+    public void addStudentToGroup(int studentId, String groupName) {
         Student s = studentService.getStudent(studentId);
         Group g = groupDao.findById(groupName);
 

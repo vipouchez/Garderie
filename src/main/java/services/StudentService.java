@@ -25,15 +25,15 @@ public class StudentService {
         return dao.save(student);
     }
 
-    public boolean removeStudent(String id)  {
+    public boolean removeStudent(int id)  {
         return dao.deleteById(id);
     }
 
-    public List<Student> getStudents(){
+    public List<Student> getStudents() throws Exception {
         return dao.findAll();
     }
 
-    public Student getStudent(String id){
+    public Student getStudent(int id){
         return dao.findById(id);
     }
 
