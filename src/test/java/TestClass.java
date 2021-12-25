@@ -1,38 +1,42 @@
+import dao.AddressDao;
 import dao.StudentDao;
+import models.Address;
 import models.Student;
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.time.LocalDate;
 
 public class TestClass {
 
-    public static void main(String[] args) throws Exception  {
-       /* StudentDao dao = StudentDao.getInstance();
+    @Test
+    public void should_save_new_student_with_his_address(){
         Student s = new Student();
-        s.setFirstName("adem");
-        s.setLastName("hmama");
-        s.setFatherName("fathi");
+        s.setMotherName("neila");
         s.setBirthday(LocalDate.now());
-        dao.save(s);*/
+        s.setFirstName("ayoub");
+        s.setLastName("hmama");
+        s.setAddress(new Address());
+        s.getAddress().setRoadName("any road");
+        s.getAddress().setPostalCode(5180);
+        s.getAddress().setRoadNumber("slkdjfl");
+        s.getAddress().setCity("mahdia");
 
 
-        /*StudentDao dao = StudentDao.getInstance();
-        List<Student> all = dao.findAll();
-        for(Student s : all ){
-            System.out.println(s);
-            System.out.println("============================");
-        }
-        */
-
-        /*StudentDao dao = StudentDao.getInstance();
-        Student s = dao.findById(3);
-        System.out.println("return student: " + s);
-*/
-
+        // when
         StudentDao dao = StudentDao.getInstance();
-        Student  s = dao.findById(2);
-        s.setFirstName("tounis");
-        s.setMotherName("bounes");
-        dao.update(s);
+        Student savedStudent = dao.save(s);
+
+
+        // then
+        Assert.assertTrue(savedStudent.getAddress().getId() != 0);
     }
 
-
+    @Test
+    public void should_select_student_with_his_address() {
+        StudentDao dao = StudentDao.getInstance();
+        Student student = dao.findById(1);
+        System.out.println("address: "  + student.getAddress());
+    }
 
 }

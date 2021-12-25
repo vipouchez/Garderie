@@ -2,22 +2,30 @@ package models;
 
 public class Address  {
 
-    private String id;
-    private String postalCode;
+    private int id;
+    private int postalCode;
     private String roadNumber;
     private String roadName;
     private String city;
 
-    public String getPostalCode() {
+    public String getRoadNumber() {
+        return roadNumber;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getPostalCode() {
         return postalCode;
     }
 
-    public void setPostalCode(String postalCode) {
+    public void setPostalCode(int postalCode) {
         this.postalCode = postalCode;
-    }
-
-    public String getRoadNumber() {
-        return roadNumber;
     }
 
     public void setRoadNumber(String roadNumber) {
@@ -41,15 +49,6 @@ public class Address  {
     }
 
 
-
-    public String getId() {
-        return id;
-    }
-
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
 
     @Override
