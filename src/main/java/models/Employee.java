@@ -11,10 +11,7 @@ public class Employee {
     private Address address;
     private LocalDate birthday;
     private String imageUrl;
-
     private String cinNumber;
-    private String name;
-    private String lastname;
     private String phoneNumber;
 
     public Employee() {
@@ -26,6 +23,22 @@ public class Employee {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public String getCinNumber() {
+        return cinNumber;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
     public String getFirstName() {
@@ -52,13 +65,6 @@ public class Employee {
         this.fatherName = fatherName;
     }
 
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
 
     public LocalDate getBirthday() {
         return birthday;
@@ -76,7 +82,7 @@ public class Employee {
         this.imageUrl = imageUrl;
     }
 
-    public String getCinNumber() {
+    public String getCinNumber(String string) {
         return cinNumber;
     }
 
@@ -84,23 +90,8 @@ public class Employee {
         this.cinNumber = cinNumber;
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getPhoneNumber() {
+    public String getPhoneNumber(String string) {
         return phoneNumber;
     }
 
@@ -119,8 +110,6 @@ public class Employee {
                 ", birthday=" + birthday +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", cinNumber='" + cinNumber + '\'' +
-                ", name='" + name + '\'' +
-                ", lastname='" + lastname + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }

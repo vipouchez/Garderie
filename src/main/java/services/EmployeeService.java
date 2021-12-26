@@ -25,11 +25,11 @@ public class EmployeeService {
         employeeDao.save(employee);
     }
 
-    public List<Employee> getEmployees(){
+    public List<Employee> getEmployees() throws Exception {
         return employeeDao.findAll();
     }
 
-    public Employee getEmployee(String id){
+    public Employee getEmployee(int id){
         return employeeDao.findById(id);
     }
 

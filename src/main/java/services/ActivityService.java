@@ -36,7 +36,7 @@ public class ActivityService {
 
 
 
-    public void setResponsibleEmployee(String activityId, String employeeId){
+    public void setResponsibleEmployee(String activityId, int employeeId){
         Activity a = dao.findById(activityId);
         Employee e = employeeService.getEmployee(employeeId);
         a.setResponsible(e);

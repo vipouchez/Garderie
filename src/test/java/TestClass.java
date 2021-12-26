@@ -1,4 +1,3 @@
-import dao.AddressDao;
 import dao.StudentDao;
 import models.Address;
 import models.Student;
@@ -6,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class TestClass {
 
@@ -38,5 +38,17 @@ public class TestClass {
         Student student = dao.findById(1);
         System.out.println("address: "  + student.getAddress());
     }
+
+
+    @Test
+    public void should_return_allstudnts_with_adress() throws Exception {
+        StudentDao dao = StudentDao.getInstance();
+        List<Student> students = dao.findAll();
+        for (Student s : students) {
+            System.out.println(s);
+            System.out.println("******************************************");
+        }
+    }
+
 
 }
