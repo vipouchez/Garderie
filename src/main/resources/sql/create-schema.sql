@@ -1,6 +1,6 @@
 create table address (
     id  int(6)  AUTO_INCREMENT primary key,
-    postal_code int(6) ,
+    postal_code int(6),
     road_number varchar(30),
     road_name varchar(30),
     city varchar(30)

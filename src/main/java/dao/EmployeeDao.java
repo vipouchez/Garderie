@@ -133,12 +133,47 @@ public class EmployeeDao {
         }
     }
 
-
-    public boolean deleteById(String id) {
-        //todo
-        return false;
+    public boolean deleteById(int id) {
+        Employee e = findById(id);
+        String sql = "DELETE FROM employee WHERE id = ? ";
+        try (
+                Connection conn = DriverManager.getConnection(Config.DB_URL, Config.DB_USER, Config.DB_PASSWORD);
+                PreparedStatement stmt = conn.prepareStatement(sql);) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+            AddressDao addressDao = AddressDao.getInstance();
+            addressDao.deleteById(e.getAddress().getId());
+            return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
     }
 
+
+
+    public Employee update(Employee e) {
+        AddressDao addressDao = AddressDao.getInstance();
+        addressDao.update(e.getAddress());
+
+        String sql = "UPDATE employee SET first_name=?, last_name=?, father_name=? ,birthday=?, image_url=?, cin_number=?,phone_number=? WHERE id=?";
+        try (Connection conn = DriverManager.getConnection(Config.DB_URL, Config.DB_USER, Config.DB_PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(sql);) {
+            stmt.setString(1, e.getFirstName());
+            stmt.setString(2, e.getLastName());
+            stmt.setString(3, e.getFatherName());
+            stmt.setDate(4, Date.valueOf(e.getBirthday()));
+            stmt.setString(5, e.getImageUrl());
+            stmt.setString(6, e.getCinNumber());
+            stmt.setString(7, e.getPhoneNumber());
+            stmt.setInt(8, e.getId());
+            stmt.executeUpdate();
+            return findById(e.getId());
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
 
 }
 

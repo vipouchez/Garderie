@@ -12,7 +12,7 @@ import java.util.List;
 public class TestClass {
 
     @Test
-    public void should_save_new_student_with_his_address(){
+    public void should_save_new_student_with_his_address() {
         Student s = new Student();
         s.setMotherName("neila");
         s.setBirthday(LocalDate.now());
@@ -38,7 +38,7 @@ public class TestClass {
     public void should_select_student_with_his_address() {
         StudentDao dao = StudentDao.getInstance();
         Student student = dao.findById(1);
-        System.out.println("address: "  + student.getAddress());
+        System.out.println("address: " + student.getAddress());
     }
 
 
@@ -53,9 +53,9 @@ public class TestClass {
     }
 
     @Test
-    public void should_add_employee_to_database(){
+    public void should_add_employee_to_database() {
         Employee e = new Employee();
-        e.setFirstName("amine");
+        e.setFirstName("ayoub");
         e.setLastName("hmama");
         e.setBirthday(LocalDate.now());
         e.setAddress(new Address());
@@ -69,16 +69,34 @@ public class TestClass {
     }
 
 
-
-        @Test
+    @Test
     public void should_return_all_employees() throws Exception {
         EmployeeDao dao = EmployeeDao.getInstance();
         List<Employee> employees = dao.findAll();
-        for (Employee e : employees){
+        for (Employee e : employees) {
             System.out.println(e);
             System.out.println("-------------------------------------");
         }
-        }
+    }
+
+
+    @Test
+    public void should_delete_employee_byID() throws Exception {
+        EmployeeDao dao = EmployeeDao.getInstance();
+        dao.deleteById(3);
+        should_return_all_employees();
+    }
+
+    @Test
+    public void should_delete_student(){
+        StudentDao dao = StudentDao.getInstance();
+        Student s = new Student();
+        s.setAddress(new Address());
+        s.setBirthday(LocalDate.now());
+        s.setFirstName("new test");
+        Student saved = dao.save(s);
+        dao.deleteById(saved.getId());
+    }
 
 
 }

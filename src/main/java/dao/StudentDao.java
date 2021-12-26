@@ -144,14 +144,15 @@ public class StudentDao {
 
     public boolean deleteById(int id) {
         Student s = findById(id);
-        AddressDao addressDao = AddressDao.getInstance();
-        addressDao.deleteById(s.getAddress().getId());
         String sql = "DELETE FROM student WHERE id = ? ";
         try (
                 Connection conn = DriverManager.getConnection(Config.DB_URL, Config.DB_USER, Config.DB_PASSWORD);
                 PreparedStatement stmt = conn.prepareStatement(sql);) {
             stmt.setInt(1, id);
-            return stmt.executeUpdate() == 1;
+            stmt.executeUpdate();
+            AddressDao addressDao = AddressDao.getInstance();
+            addressDao.deleteById(s.getAddress().getId());
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
