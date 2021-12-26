@@ -24,7 +24,7 @@ public class AddressDao {
                 PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         ) {
             stmt.setInt(1, a.getPostalCode());
-            stmt.setString(2, a.getRoadName());
+            stmt.setString(2, a.getRoadNumber());
             stmt.setString(3, a.getRoadName());
             stmt.setString(4, a.getCity());
 

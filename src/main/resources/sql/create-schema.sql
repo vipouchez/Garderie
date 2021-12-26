@@ -21,6 +21,19 @@ create table student(
     foreign key(address_id) references address(id)
 );
 
+create table employee(
+    id  int(6)  AUTO_INCREMENT primary key,
+    first_name varchar(30),
+    last_name varchar(30),
+    father_name varchar(30),
+    birthday date,
+    image_url varchar(256),
+    cin_number varchar(30) ,
+    phone_number varchar(30),
+    address_id int(6),
+    foreign key(address_id) references address(id)
+);
+
 
 
 

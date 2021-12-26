@@ -1,5 +1,7 @@
+import dao.EmployeeDao;
 import dao.StudentDao;
 import models.Address;
+import models.Employee;
 import models.Student;
 import org.junit.Assert;
 import org.junit.Test;
@@ -49,6 +51,34 @@ public class TestClass {
             System.out.println("******************************************");
         }
     }
+
+    @Test
+    public void should_add_employee_to_database(){
+        Employee e = new Employee();
+        e.setFirstName("amine");
+        e.setLastName("hmama");
+        e.setBirthday(LocalDate.now());
+        e.setAddress(new Address());
+        e.getAddress().setRoadName("basatine");
+        e.getAddress().setPostalCode(5180);
+        e.getAddress().setRoadNumber("hahah");
+        e.getAddress().setCity("mahdia");
+        EmployeeDao dao = EmployeeDao.getInstance();
+        Employee savedEmployee = dao.save(e);
+
+    }
+
+
+
+        @Test
+    public void should_return_all_employees() throws Exception {
+        EmployeeDao dao = EmployeeDao.getInstance();
+        List<Employee> employees = dao.findAll();
+        for (Employee e : employees){
+            System.out.println(e);
+            System.out.println("-------------------------------------");
+        }
+        }
 
 
 }
