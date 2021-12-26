@@ -6,12 +6,28 @@ import java.util.List;
 
 public class Group {
 
-    private String name; // functional id
+    private String name;
     private List<Activity> activities;
     private List<Student> students;
 
     public String getName() {
         return name;
+    }
+
+    public List<Activity> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(List<Activity> activities) {
+        this.activities = activities;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 
     public void setName(String name) {

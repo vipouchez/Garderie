@@ -1,6 +1,8 @@
 package dao;
 
 import config.Config;
+import error.NotFoundException;
+import models.Address;
 import models.Group;
 import models.Student;
 
@@ -44,7 +46,7 @@ public class GroupDao   {
                 Group g = new Group();
                 g.setName(rs.getString(1));
 
-                // then add the new created group to the list of groups  like follows::
+                // then add the new created group to the list of groups as follows:
                 result.add(g);
             }
         }catch (Exception e){
@@ -54,41 +56,78 @@ public class GroupDao   {
         return result;
     }
 
+    public Group save(Group g){
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public Group save(Group s){
-        //todo
-        return null;
+        String sql = "insert into groups (name) values (?) ";
+        try (
+                Connection conn = DriverManager.getConnection(Config.DB_URL, Config.DB_USER, Config.DB_PASSWORD);
+                PreparedStatement stmt = conn.prepareStatement(sql);
+        ) {
+            stmt.setString(1, g.getName());
+            stmt.executeUpdate(); // execute the database insert query
+            return g;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
-
-
-
 
     public boolean deleteById(String id){
         //todo
         return false;
     }
 
+    public Group findById(String name){
+        String sql = "SELECT * FROM `groups` where name = ? ";
+        try (
+                Connection conn = DriverManager.getConnection(Config.DB_URL, Config.DB_USER, Config.DB_PASSWORD);
+                PreparedStatement stmt = conn.prepareStatement(sql);) {
+            stmt.setString(1, name);
+            ResultSet rs = stmt.executeQuery();
+            boolean foundSomething = rs.next();
+            if (!foundSomething) {
+                throw new NotFoundException("Group " + name + " does not exist");
+            }
+            Group g = new Group();
+            g.setName(name);
 
-    public Group findById(String id){
-        //todo
-        return null;
+            // TODO: also fetch list of activities for this gorup
+
+            // get the list of students
+            List<Student> groupStudents = getListOfStudentsInGroup(name);
+            g.setStudents(groupStudents);
+            return g;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private List<Student> getListOfStudentsInGroup(String name) {
+        String sql = "SELECT * FROM `student` where group_id = ? ";
+        try (
+                Connection conn = DriverManager.getConnection(Config.DB_URL, Config.DB_USER, Config.DB_PASSWORD);
+                PreparedStatement stmt = conn.prepareStatement(sql);) {
+            stmt.setString(1, name);
+            ResultSet rs = stmt.executeQuery();
+            List<Student> result = new LinkedList<>();
+            while(rs.next()){
+                Student s = new Student();
+                s.setId(rs.getInt(1));
+                // get student fields from the current result set exp:
+                s.setFirstName(rs.getString(2));
+                s.setLastName(rs.getString(3));
+                s.setFatherName(rs.getString(4));
+                Date d = rs.getDate(5);
+                s.setBirthday(d.toLocalDate());
+                result.add(s);
+            }
+
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

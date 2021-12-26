@@ -13,6 +13,8 @@ public class Employee {
     private String imageUrl;
     private String cinNumber;
     private String phoneNumber;
+    private Activity activity;  // TODO
+
 
     public Employee() {
     }

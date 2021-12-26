@@ -17,9 +17,17 @@ public class Student {
     private String grandFatherName;
     private String fatherCin;
     private String fatherPhoneNumber;
-
+    private Group group;
 
     public Student() {
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public int getId() {
@@ -124,6 +132,7 @@ public class Student {
                 ", grandFatherName='" + grandFatherName + '\'' +
                 ", fatherCin='" + fatherCin + '\'' +
                 ", fatherPhoneNumber='" + fatherPhoneNumber + '\'' +
+                ", group=" + group +
                 '}';
     }
 }

@@ -2,10 +2,11 @@ package models;
 
 public class Activity {
 
-    private String code; // functional id
+    private String code;
     private String label;
     private Employee responsible;
     private int chargePrice;
+
 
     public int getChargePrice() {
         return chargePrice;

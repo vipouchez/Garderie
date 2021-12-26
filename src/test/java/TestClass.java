@@ -1,7 +1,9 @@
 import dao.EmployeeDao;
+import dao.GroupDao;
 import dao.StudentDao;
 import models.Address;
 import models.Employee;
+import models.Group;
 import models.Student;
 import org.junit.Assert;
 import org.junit.Test;
@@ -13,7 +15,13 @@ public class TestClass {
 
     @Test
     public void should_save_new_student_with_his_address() {
+        // create group
+        Group g = new Group();
+        g.setName("4GI1");
+        GroupDao.getInstance().save(g);
+
         Student s = new Student();
+        s.setGroup(g);
         s.setMotherName("neila");
         s.setBirthday(LocalDate.now());
         s.setFirstName("ayoub");
@@ -24,12 +32,9 @@ public class TestClass {
         s.getAddress().setRoadNumber("slkdjfl");
         s.getAddress().setCity("mahdia");
 
-
         // when
         StudentDao dao = StudentDao.getInstance();
         Student savedStudent = dao.save(s);
-
-
         // then
         Assert.assertTrue(savedStudent.getAddress().getId() != 0);
     }
@@ -38,7 +43,7 @@ public class TestClass {
     public void should_select_student_with_his_address() {
         StudentDao dao = StudentDao.getInstance();
         Student student = dao.findById(1);
-        System.out.println("address: " + student.getAddress());
+        System.out.println("student: " + student);
     }
 
 
@@ -96,6 +101,13 @@ public class TestClass {
         s.setFirstName("new test");
         Student saved = dao.save(s);
         dao.deleteById(saved.getId());
+    }
+
+    @Test
+    public void should_return_group_and_students_of_this_group(){
+        GroupDao dao = GroupDao.getInstance();
+        Group g = dao.findById("4GI1");
+        System.out.println("g: "  + g );
     }
 
 

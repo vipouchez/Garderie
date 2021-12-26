@@ -3,6 +3,7 @@ package dao;
 import config.Config;
 import error.NotFoundException;
 import models.Address;
+import models.Group;
 import models.Student;
 
 import java.sql.*;
@@ -55,9 +56,13 @@ public class StudentDao {
                 s.setGrandFatherName(rs.getString(8));
                 s.setFatherCin(rs.getString(9));
                 s.setFatherPhoneNumber(rs.getString(10));
-                a.setPostalCode(rs.getInt(11));
-                a.setRoadNumber(rs.getString(12));
-                a.setRoadName(rs.getString(13));
+                s.setGroup(new Group());
+                s.getGroup().setName(rs.getString(12));
+                a.setId(rs.getInt(13));
+                a.setPostalCode(rs.getInt(14));
+                a.setRoadNumber(rs.getString(15));
+                a.setRoadName(rs.getString(16));
+                a.setCity(rs.getString(17));
                 // then add the new created student to the list of student s  like follows::
                 s.setAddress(a);
                 result.add(s);
@@ -95,12 +100,14 @@ public class StudentDao {
             s.setGrandFatherName(rs.getString(8));
             s.setFatherCin(rs.getString(9));
             s.setFatherPhoneNumber(rs.getString(10));
+            s.setGroup(new Group());
+            s.getGroup().setName(rs.getString(12));
             s.setAddress(new Address());
-            s.getAddress().setId(rs.getInt(12));
-            s.getAddress().setPostalCode(rs.getInt(13));
-            s.getAddress().setRoadNumber(rs.getString(14));
-            s.getAddress().setRoadName(rs.getString(15));
-            s.getAddress().setCity(rs.getString(16));
+            s.getAddress().setId(rs.getInt(13));
+            s.getAddress().setPostalCode(rs.getInt(14));
+            s.getAddress().setRoadNumber(rs.getString(15));
+            s.getAddress().setRoadName(rs.getString(16));
+            s.getAddress().setCity(rs.getString(17));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -113,7 +120,7 @@ public class StudentDao {
         Address savedAddress = addressDao.save(s.getAddress());
 
         String sql = "INSERT INTO student (first_name, last_name, father_name ,birthday, image_url, " +
-                "mother_name, grand_father_name, father_cin, father_phone_number, address_id) VALUES (?,?,?,?,?,?,?,?,?,?)";
+                "mother_name, grand_father_name, father_cin, father_phone_number, address_id, group_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         try (
                 Connection conn = DriverManager.getConnection(Config.DB_URL, Config.DB_USER, Config.DB_PASSWORD);
                 PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -128,6 +135,7 @@ public class StudentDao {
             stmt.setString(8, s.getFatherCin());
             stmt.setString(9, s.getFatherPhoneNumber());
             stmt.setInt(10, savedAddress.getId());
+            stmt.setString(11, s.getGroup().getName());
 
             stmt.executeUpdate(); // execute the database insert query
             ResultSet rs = stmt.getGeneratedKeys(); // database returns
@@ -164,7 +172,7 @@ public class StudentDao {
         AddressDao addressDao = AddressDao.getInstance();
         addressDao.update(s.getAddress());
 
-        String sql = "UPDATE student SET first_name=?, last_name=?, father_name=? ,birthday=?, image_url=?,mother_name=?, grand_father_name=?, father_cin=?, father_phone_number=? WHERE id=?";
+        String sql = "UPDATE student SET first_name=?, last_name=?, father_name=? ,birthday=?, image_url=?,mother_name=?, grand_father_name=?, father_cin=?, father_phone_number=? , group_id =? WHERE id=?";
         try (Connection conn = DriverManager.getConnection(Config.DB_URL, Config.DB_USER, Config.DB_PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(sql);) {
             stmt.setString(1, s.getFirstName());
@@ -176,7 +184,8 @@ public class StudentDao {
             stmt.setString(7, s.getGrandFatherName());
             stmt.setString(8, s.getFatherCin());
             stmt.setString(9, s.getFatherPhoneNumber());
-            stmt.setInt(10, s.getId());
+            stmt.setString(10, s.getGroup().getName());
+            stmt.setInt(11, s.getId());
             stmt.executeUpdate();
             return findById(s.getId());
         } catch (SQLException e) {

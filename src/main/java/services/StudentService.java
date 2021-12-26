@@ -38,7 +38,7 @@ public class StudentService {
     }
 
     public void updateStudent(Student newStudent) {
-        dao.save(newStudent);
+        dao.update(newStudent);
     }
 
 }

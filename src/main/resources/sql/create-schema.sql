@@ -6,6 +6,11 @@ create table address (
     city varchar(30)
 );
 
+
+create table groups(
+    name varchar(30) primary key
+);
+
 create table student(
     id  int(6)  AUTO_INCREMENT primary key,
     first_name varchar(30),
@@ -18,6 +23,8 @@ create table student(
     father_cin varchar(30) ,
     father_phone_number varchar(30),
     address_id int(6),
+    group_id varchar(30),
+    foreign key(group_id) references groups(name),
     foreign key(address_id) references address(id)
 );
 
@@ -33,7 +40,6 @@ create table employee(
     address_id int(6),
     foreign key(address_id) references address(id)
 );
-
 
 
 
