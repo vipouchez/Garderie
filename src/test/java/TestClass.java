@@ -24,7 +24,7 @@ public class TestClass {
         s.setGroup(g);
         s.setMotherName("neila");
         s.setBirthday(LocalDate.now());
-        s.setFirstName("ayoub");
+        s.setFirstName("amin");
         s.setLastName("hmama");
         s.setAddress(new Address());
         s.getAddress().setRoadName("any road");
@@ -60,7 +60,7 @@ public class TestClass {
     @Test
     public void should_add_employee_to_database() {
         Employee e = new Employee();
-        e.setFirstName("ayoub");
+        e.setFirstName("eclipse");
         e.setLastName("hmama");
         e.setBirthday(LocalDate.now());
         e.setAddress(new Address());
