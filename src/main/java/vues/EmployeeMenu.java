@@ -1,21 +1,17 @@
 package vues;
 
-import dao.AddressDao;
 import dao.EmployeeDao;
 import models.Address;
 import models.Employee;
-import models.Student;
 
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,7 +32,6 @@ public class EmployeeMenu extends JFrame{
     private JScrollPane scrollPanel;
 
     EmployeeDao dao = EmployeeDao.getInstance();
-    AddressDao addressdao = AddressDao.getInstance();
     JFrame frame = new JFrame();
 
 
@@ -64,6 +59,13 @@ public class EmployeeMenu extends JFrame{
 
         table1.setModel(model);
     }
+
+
+
+
+
+
+
 
 
 
@@ -114,6 +116,49 @@ public class EmployeeMenu extends JFrame{
                     postalCode.setText("");
                     city.setText("");
                 }
+            }
+        });
+        updateEmployeeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource()==updateEmployeeButton){
+
+                    Employee emp = new Employee();
+                    emp.setFirstName(firstName.getText());
+                    emp.setLastName(lastName.getText());
+                    emp.setFatherName(fatherName.getText());
+                    emp.setCinNumber(cinNumber.getText());
+                    emp.setPhoneNumber(phoneNumber.getText());
+                    emp.setAddress(new Address());
+                    emp.getAddress().setRoadName(roadName.getText());
+                    emp.getAddress().setPostalCode(Integer.parseInt(postalCode.getText()));
+                    emp.getAddress().setCity(city.getText());
+                    emp.setBirthday(LocalDate.now());
+                    dao.save(emp);
+                    model.addRow(new Object[] { emp.getId(),emp.getFirstName(),emp.getLastName(),emp.getFatherName(),emp.getBirthday(),emp.getCinNumber(),emp.getPhoneNumber(),
+                            emp.getAddress().getPostalCode(),emp.getAddress().getRoadName(),emp.getAddress().getCity()});
+                    JOptionPane.showMessageDialog(frame,"Employee added successfully.");
+                    //reset fields to 0 :
+                    firstName.setText("");
+                    lastName.setText("");
+                    fatherName.setText("");
+                    cinNumber.setText("");
+                    phoneNumber.setText("");
+                    roadName.setText("");
+                    postalCode.setText("");
+                    city.setText("");
+                }
+
+            }
+        });
+        table1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                Employee emp = new Employee();
+                int selectedRow = table1.getSelectedRow();
+                TableModel model = table1.getModel();
+              //  firstName.setText(model.setValueAt(selectedRow,1););
             }
         });
     }
