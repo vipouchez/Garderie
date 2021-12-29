@@ -6,6 +6,7 @@ import models.Employee;
 import models.Student;
 
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
@@ -13,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,26 +32,40 @@ public class EmployeeMenu extends JFrame{
     private JButton addEmployeeButton;
     private JButton updateEmployeeButton;
     private JTable table1;
+    private JScrollPane scrollPanel;
 
     EmployeeDao dao = EmployeeDao.getInstance();
     JFrame frame = new JFrame();
 
 
-    public void addRowToTable() throws Exception {
-        DefaultTableModel model = (DefaultTableModel) table1.getModel();
-        List<Employee> emplist = new LinkedList<Employee>();
-        emplist = dao.findAll();
-        Object rowData[] = new Object[4];
-        for (int i =0; i< emplist.size();i++){
-            rowData[0] = emplist.get(i).getId();
-            rowData[1] = emplist.get(i).getFirstName();
-            rowData[2] = emplist.get(i).getLastName();
-            rowData[3] = emplist.get(i).getFatherName();
+    DefaultTableModel model;
 
 
+    Object[] column = {"ID","First name","Last Name","birthday","mother name"};
+    Object[] row= new Object[0];
+
+    private void fillTable() throws Exception{
+        model = new DefaultTableModel();
+
+        model.setColumnIdentifiers(column);
+        table1.setModel(model);
+
+        List<Employee> employees = new LinkedList<>();
+        employees = dao.findAll();
+        for (int i=0;i<employees.size();i++)
+        {
+            Employee e = employees.get(i) ;
+            model.addRow(new Object[] { e.getId(),e.getFirstName(),e.getLastName(),e.getBirthday()});
         }
 
+        table1.setModel(model);
     }
+
+
+
+
+
+
 
 
 
@@ -63,7 +79,14 @@ public class EmployeeMenu extends JFrame{
         setLocationRelativeTo(null); // set JFrame in center of the screen
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // closes the window
         setVisible(true);
-        addRowToTable();
+        fillTable();
+
+
+
+
+
+
+
 
         addEmployeeButton.addActionListener(new ActionListener() {
             @Override
@@ -82,6 +105,7 @@ public class EmployeeMenu extends JFrame{
                     emp.getAddress().setCity(city.getText());
                     emp.setBirthday(LocalDate.now());
                     dao.save(emp);
+                    model.addRow(new Object[] { emp.getId(),emp.getFirstName(),emp.getLastName(),emp.getBirthday()});
                     JOptionPane.showMessageDialog(frame,"Employee added successfully.");
                     //reset fields to 0 :
                     firstName.setText("");

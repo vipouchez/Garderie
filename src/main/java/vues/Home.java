@@ -15,6 +15,7 @@ public class Home extends JFrame {
 
     public Home()  {
         setContentPane(mainPanel);
+
         mainPanel.setSize(600,600);
         setTitle("Home");
         setSize(600, 600);//size of jframe

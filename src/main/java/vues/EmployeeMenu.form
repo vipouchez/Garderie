@@ -173,7 +173,7 @@
               </component>
             </children>
           </grid>
-          <scrollpane id="b1b34">
+          <scrollpane id="b1b34" binding="scrollPanel">
             <constraints>
               <splitpane position="right"/>
             </constraints>
