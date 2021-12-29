@@ -1,5 +1,6 @@
 package vues;
 
+import dao.AddressDao;
 import dao.EmployeeDao;
 import models.Address;
 import models.Employee;
@@ -35,18 +36,18 @@ public class EmployeeMenu extends JFrame{
     private JScrollPane scrollPanel;
 
     EmployeeDao dao = EmployeeDao.getInstance();
+    AddressDao addressdao = AddressDao.getInstance();
     JFrame frame = new JFrame();
 
 
     DefaultTableModel model;
 
 
-    Object[] column = {"ID","First name","Last Name","birthday","mother name"};
+    Object[] column = {"ID","First name","Last Name","birthday","Cin Number","Phone","Postal Code"," road Name","City"};
     Object[] row= new Object[0];
 
     private void fillTable() throws Exception{
         model = new DefaultTableModel();
-
         model.setColumnIdentifiers(column);
         table1.setModel(model);
 
@@ -55,7 +56,10 @@ public class EmployeeMenu extends JFrame{
         for (int i=0;i<employees.size();i++)
         {
             Employee e = employees.get(i) ;
-            model.addRow(new Object[] { e.getId(),e.getFirstName(),e.getLastName(),e.getBirthday()});
+            Address a = new Address();
+            a = e.getAddress();
+            model.addRow(new Object[] { e.getId(),e.getFirstName(),e.getLastName(),e.getFatherName(),e.getBirthday(),e.getCinNumber(),e.getPhoneNumber(),
+                    a.getPostalCode(),a.getRoadName(),a.getCity()});
         }
 
         table1.setModel(model);
@@ -63,19 +67,11 @@ public class EmployeeMenu extends JFrame{
 
 
 
-
-
-
-
-
-
-
-
     public EmployeeMenu() throws Exception {
         setContentPane(mainPanel);
         mainPanel.setSize(600,600);
         setTitle("Home");
-        setSize(600, 600);//size of jframe
+        setSize(1000, 600);//size of jframe
         setLocationRelativeTo(null); // set JFrame in center of the screen
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // closes the window
         setVisible(true);
@@ -105,7 +101,8 @@ public class EmployeeMenu extends JFrame{
                     emp.getAddress().setCity(city.getText());
                     emp.setBirthday(LocalDate.now());
                     dao.save(emp);
-                    model.addRow(new Object[] { emp.getId(),emp.getFirstName(),emp.getLastName(),emp.getBirthday()});
+                    model.addRow(new Object[] { emp.getId(),emp.getFirstName(),emp.getLastName(),emp.getFatherName(),emp.getBirthday(),emp.getCinNumber(),emp.getPhoneNumber(),
+                            emp.getAddress().getPostalCode(),emp.getAddress().getRoadName(),emp.getAddress().getCity()});
                     JOptionPane.showMessageDialog(frame,"Employee added successfully.");
                     //reset fields to 0 :
                     firstName.setText("");

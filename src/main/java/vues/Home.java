@@ -45,7 +45,7 @@ public class Home extends JFrame {
                     } catch (Exception exception) {
                         exception.printStackTrace();
                     }
-
+                    dispose();
 
                 }
             }
