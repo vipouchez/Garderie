@@ -7,6 +7,7 @@ import models.Employee;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -30,6 +31,8 @@ public class EmployeeMenu extends JFrame{
     private JButton updateEmployeeButton;
     private JTable table1;
     private JScrollPane scrollPanel;
+    private JButton returnButton;
+    private JButton removeButton;
 
     EmployeeDao dao = EmployeeDao.getInstance();
     JFrame frame = new JFrame();
@@ -38,7 +41,7 @@ public class EmployeeMenu extends JFrame{
     DefaultTableModel model;
 
 
-    Object[] column = {"ID","First name","Last Name","birthday","Cin Number","Phone","Postal Code"," road Name","City"};
+    Object[] column = {"ID","First name","Last Name","father name","Cin Number","Phone","Postal Code"," road Name","City"};
     Object[] row= new Object[0];
 
     private void fillTable() throws Exception{
@@ -118,6 +121,32 @@ public class EmployeeMenu extends JFrame{
                 }
             }
         });
+
+
+
+
+            //gets the information of the employee from the table and shows it in the textfields
+        table1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                int selectedRow = table1.getSelectedRow();
+                TableModel model = table1.getModel();
+
+                firstName.setText( model.getValueAt(selectedRow,1).toString());
+                lastName.setText( model.getValueAt(selectedRow,2).toString());
+                fatherName.setText( model.getValueAt(selectedRow,3).toString());
+                cinNumber.setText( model.getValueAt(selectedRow,4).toString());
+                phoneNumber.setText( model.getValueAt(selectedRow,5).toString());
+                postalCode.setText( model.getValueAt(selectedRow,6).toString());
+                roadName.setText( model.getValueAt(selectedRow,7).toString());
+                city.setText( model.getValueAt(selectedRow,8).toString());
+            }
+        });
+
+
+
+
         updateEmployeeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -134,10 +163,26 @@ public class EmployeeMenu extends JFrame{
                     emp.getAddress().setPostalCode(Integer.parseInt(postalCode.getText()));
                     emp.getAddress().setCity(city.getText());
                     emp.setBirthday(LocalDate.now());
-                    dao.save(emp);
+
+                    //gets the employee ID from the table and set it to the updating employee parameters :
+                    int selectedRow = table1.getSelectedRow();
+                    TableModel model1 = table1.getModel();
+                    String id;
+                    id = model1.getValueAt(selectedRow,0).toString();
+                    emp.setId(Integer.parseInt(id));
+
+                    //execute the update dao :
+                    dao.update(emp);
+                    //deletes the row selected :
+                    ((DefaultTableModel)table1.getModel()).removeRow(selectedRow);
+                    //re-add the updated row :
                     model.addRow(new Object[] { emp.getId(),emp.getFirstName(),emp.getLastName(),emp.getFatherName(),emp.getBirthday(),emp.getCinNumber(),emp.getPhoneNumber(),
                             emp.getAddress().getPostalCode(),emp.getAddress().getRoadName(),emp.getAddress().getCity()});
-                    JOptionPane.showMessageDialog(frame,"Employee added successfully.");
+
+
+
+                    //shows a confirmation update message
+                    JOptionPane.showMessageDialog(frame,"Employee updated successfully.");
                     //reset fields to 0 :
                     firstName.setText("");
                     lastName.setText("");
@@ -151,14 +196,39 @@ public class EmployeeMenu extends JFrame{
 
             }
         });
-        table1.addMouseListener(new MouseAdapter() {
+
+        removeButton.addActionListener(new ActionListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+            public void actionPerformed(ActionEvent e) {
                 Employee emp = new Employee();
                 int selectedRow = table1.getSelectedRow();
                 TableModel model = table1.getModel();
-              //  firstName.setText(model.setValueAt(selectedRow,1););
+                String id;
+                id = model.getValueAt(selectedRow,0).toString();
+                emp.setId(Integer.parseInt(id));
+                dao.deleteById(emp.getId());
+                ((DefaultTableModel)table1.getModel()).removeRow(selectedRow);
+
+
+                //shows a confirmation update message
+                JOptionPane.showMessageDialog(frame,"Employee Deleted successfully.");
+                //reset fields to 0 :
+                firstName.setText("");
+                lastName.setText("");
+                fatherName.setText("");
+                cinNumber.setText("");
+                phoneNumber.setText("");
+                roadName.setText("");
+                postalCode.setText("");
+                city.setText("");
+
+            }
+        });
+        returnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Home home = new Home();
+                dispose();
             }
         });
     }

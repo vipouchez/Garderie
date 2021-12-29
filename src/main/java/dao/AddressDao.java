@@ -55,6 +55,7 @@ public class AddressDao {
     }
 
     public Address update(Address a) {
+        int id = a.getId();
         String sql = "UPDATE address SET postal_code = ?, road_number = ?, road_name = ? , city = ? WHERE id=?";
         try (Connection conn = DriverManager.getConnection(Config.DB_URL, Config.DB_USER, Config.DB_PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(sql);) {
@@ -62,6 +63,8 @@ public class AddressDao {
             stmt.setString(2, a.getRoadName());
             stmt.setString(3, a.getRoadName());
             stmt.setString(4, a.getCity());
+            stmt.setString(5, String.valueOf(id));
+
             stmt.executeUpdate();
             return a;
         } catch (SQLException e) {

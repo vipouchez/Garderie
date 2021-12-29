@@ -72,6 +72,7 @@ public class EmployeeDao {
                 PreparedStatement stmt = conn.prepareStatement(sql);) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
+
             boolean foundSomething = rs.next();
             if (!foundSomething) {
                 throw new NotFoundException();

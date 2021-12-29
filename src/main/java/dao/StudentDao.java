@@ -32,7 +32,7 @@ public class StudentDao {
 
 
     public List<Student> findAll() throws Exception {
-        List<Student> result = new LinkedList<>();
+            List<Student> result = new LinkedList<>();
 
         String sql = "SELECT * FROM student s, address a WHERE s.address_id = a.id";
         try (
