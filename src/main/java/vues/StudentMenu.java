@@ -41,14 +41,15 @@ public class StudentMenu {
 
 
     StudentDao dao = StudentDao.getInstance();
-    GroupDao groupDao= GroupDao.getInstance();
+    GroupDao groupDao = GroupDao.getInstance();
     JFrame frame = new JFrame();
 
 
     DefaultTableModel model;
 
 
-    Object[] column = {"ID", "First name", "Last Name", "father name", "Birthday", "Mother Name","Grand f.Name","Father CIN","Father Phone", "Postal Code", " road Name", "City","Group"};
+    Object[] column = {"ID", "First name", "Last Name", "father name", "Birthday", "Mother Name", "Grand f.Name", "Father CIN", "Father Phone", "Postal Code", " road Name", "City", "Group"};
+
     private void fillTable() throws Exception {
         model = new DefaultTableModel();
         model.setColumnIdentifiers(column);
@@ -60,8 +61,8 @@ public class StudentMenu {
             Student s = students.get(i);
             Address a = new Address();
             a = s.getAddress();
-            model.addRow(new Object[]{s.getId(), s.getFirstName(), s.getLastName(), s.getFatherName(), s.getBirthday(),s.getMotherName(), s.getGrandFatherName(),s.getFatherCin(),s.getFatherPhoneNumber(),
-                    a.getPostalCode(), a.getRoadName(), a.getCity(),s.getGroup().getName()});
+            model.addRow(new Object[]{s.getId(), s.getFirstName(), s.getLastName(), s.getFatherName(), s.getBirthday(), s.getMotherName(), s.getGrandFatherName(), s.getFatherCin(), s.getFatherPhoneNumber(),
+                    a.getPostalCode(), a.getRoadName(), a.getCity(), s.getGroup().getName()});
         }
 
         table1.setModel(model);
@@ -100,7 +101,7 @@ public class StudentMenu {
                     s.setBirthday(LocalDate.now());
                     g.setName(group.getText());
                     s.setGroup(g); //todo
-                   // s.getGroup().setName(group.getText()); //todo
+                    // s.getGroup().setName(group.getText()); //todo
 
 
                     List<Group> groups = new LinkedList<>();
@@ -110,28 +111,27 @@ public class StudentMenu {
                     } catch (Exception exception) {
                         exception.printStackTrace();
                     }
-                    if (groups.contains(g.getName())){
+                    if (groups.contains(g)) {
 
-                    dao.save(s);
-                    model.addRow(new Object[]{s.getId(), s.getFirstName(), s.getLastName(), s.getFatherName(), s.getBirthday(),s.getMotherName(), s.getGrandFatherName(), s.getFatherCin(), s.getFatherPhoneNumber(),
-                            s.getAddress().getPostalCode(), s.getAddress().getRoadName(), s.getAddress().getCity(),s.getGroup().getName()});
-                    JOptionPane.showMessageDialog(frame, "Student added successfully.");
-                    //reset fields to 0 :
-                    firstName.setText("");
-                    lastName.setText("");
-                    fatherName.setText("");
-                    birthday.setText("");
-                    motherName.setText("");
-                    grandFatherName.setText("");
-                    fatherCin.setText("");
-                    fatherPhone.setText("");
-                    roadName.setText("");
-                    postalCode.setText("");
-                    city.setText("");
-                    group.setText("");
+                        dao.save(s);
+                        model.addRow(new Object[]{s.getId(), s.getFirstName(), s.getLastName(), s.getFatherName(), s.getBirthday(), s.getMotherName(), s.getGrandFatherName(), s.getFatherCin(), s.getFatherPhoneNumber(),
+                                s.getAddress().getPostalCode(), s.getAddress().getRoadName(), s.getAddress().getCity(), s.getGroup().getName()});
+                        JOptionPane.showMessageDialog(frame, "Student added successfully.");
+                        //reset fields to 0 :
+                        firstName.setText("");
+                        lastName.setText("");
+                        fatherName.setText("");
+                        birthday.setText("");
+                        motherName.setText("");
+                        grandFatherName.setText("");
+                        fatherCin.setText("");
+                        fatherPhone.setText("");
+                        roadName.setText("");
+                        postalCode.setText("");
+                        city.setText("");
+                        group.setText("");
 
-                    }
-                    else
+                    } else
                         JOptionPane.showMessageDialog(frame, "Group doesnt exist.");
 
                 }
@@ -185,7 +185,7 @@ public class StudentMenu {
 
                     g.setName(group.getText());
                     s.setGroup(g);
-                   // s.getGroup().setName(group.getText());
+                    // s.getGroup().setName(group.getText());
 
                     //gets the student ID from the table and set it to the updating student parameters :
                     int selectedRow = table1.getSelectedRow();
@@ -199,8 +199,8 @@ public class StudentMenu {
                     //deletes the row selected :
                     ((DefaultTableModel) table1.getModel()).removeRow(selectedRow);
                     //re-add the updated row :
-                    model.addRow(new Object[]{s.getId(), s.getFirstName(), s.getLastName(), s.getFatherName(), s.getBirthday(),s.getMotherName(), s.getGrandFatherName(), s.getFatherCin(), s.getFatherPhoneNumber(),
-                            s.getAddress().getPostalCode(), s.getAddress().getRoadName(), s.getAddress().getCity(),s.getGroup().getName()});
+                    model.addRow(new Object[]{s.getId(), s.getFirstName(), s.getLastName(), s.getFatherName(), s.getBirthday(), s.getMotherName(), s.getGrandFatherName(), s.getFatherCin(), s.getFatherPhoneNumber(),
+                            s.getAddress().getPostalCode(), s.getAddress().getRoadName(), s.getAddress().getCity(), s.getGroup().getName()});
 
 
                     //shows a confirmation update message
@@ -226,8 +226,8 @@ public class StudentMenu {
         removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Student s = new Student()
-;                int selectedRow = table1.getSelectedRow();
+                Student s = new Student();
+                int selectedRow = table1.getSelectedRow();
                 TableModel model = table1.getModel();
                 String id;
                 id = model.getValueAt(selectedRow, 0).toString();
@@ -261,10 +261,6 @@ public class StudentMenu {
             }
         });
     }
-
-
-
-
 
 
 }

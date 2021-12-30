@@ -3,12 +3,26 @@ package models;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 public class Group {
 
     private String name;
     private List<Activity> activities;
     private List<Student> students;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Group group = (Group) o;
+        return name.equals(group.name) ;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
 
     public String getName() {
         return name;
