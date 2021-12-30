@@ -17,14 +17,14 @@ public class TestClass {
     public void should_save_new_student_with_his_address() {
         // create group
         Group g = new Group();
-        g.setName("4GI1");
+        g.setName("4GI2");
         GroupDao.getInstance().save(g);
 
         Student s = new Student();
         s.setGroup(g);
         s.setMotherName("neila");
         s.setBirthday(LocalDate.now());
-        s.setFirstName("amin");
+        s.setFirstName("ayoub");
         s.setLastName("hmama");
         s.setAddress(new Address());
         s.getAddress().setRoadName("any road");
@@ -110,5 +110,12 @@ public class TestClass {
         System.out.println("g: "  + g );
     }
 
+    @Test
+        public  void should_add_group(){
+            GroupDao dao = GroupDao.getInstance();
+            Group g = new Group();
+            g.setName("4GI");
+            dao.save(g);
+        }
 
 }

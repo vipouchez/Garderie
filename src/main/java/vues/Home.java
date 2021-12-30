@@ -26,16 +26,7 @@ public class Home extends JFrame {
         studentMenuButton.setFocusable(false);
 
 
-        studentMenuButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource()==studentMenuButton){
-                    StudentMenu studentMenu = new StudentMenu();
 
-
-                }
-            }
-        });
         employeeMenuButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -48,6 +39,17 @@ public class Home extends JFrame {
                     dispose();
 
                 }
+            }
+        });
+        studentMenuButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    StudentMenu studentMenu = new StudentMenu();
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+                dispose();
             }
         });
     }
