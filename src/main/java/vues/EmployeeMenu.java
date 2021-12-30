@@ -41,7 +41,7 @@ private JButton updateEmployeeButton;
     DefaultTableModel model;
 
 
-    Object[] column = {"ID", "First name", "Last Name", "father name", "Cin Number", "Phone", "Postal Code", " road Name", "City"};
+    Object[] column = {"ID", "First name", "Last Name", "father name","Birthday", "Cin Number", "Phone", "Postal Code", " road Name", "City"};
 
     private void fillTable() throws Exception {
         model = new DefaultTableModel();
@@ -95,6 +95,7 @@ private JButton updateEmployeeButton;
                     JOptionPane.showMessageDialog(frame, "Employee added successfully.");
                     //reset fields to 0 :
                     firstName.setText("");
+                    birthday.setText("");
                     lastName.setText("");
                     fatherName.setText("");
                     cinNumber.setText("");
@@ -118,11 +119,12 @@ private JButton updateEmployeeButton;
                 firstName.setText(model.getValueAt(selectedRow, 1).toString());
                 lastName.setText(model.getValueAt(selectedRow, 2).toString());
                 fatherName.setText(model.getValueAt(selectedRow, 3).toString());
-                cinNumber.setText(model.getValueAt(selectedRow, 4).toString());
-                phoneNumber.setText(model.getValueAt(selectedRow, 5).toString());
-                postalCode.setText(model.getValueAt(selectedRow, 6).toString());
-                roadName.setText(model.getValueAt(selectedRow, 7).toString());
-                city.setText(model.getValueAt(selectedRow, 8).toString());
+                birthday.setText(model.getValueAt(selectedRow, 4).toString());
+                cinNumber.setText(model.getValueAt(selectedRow, 5).toString());
+                phoneNumber.setText(model.getValueAt(selectedRow, 6).toString());
+                postalCode.setText(model.getValueAt(selectedRow, 7).toString());
+                roadName.setText(model.getValueAt(selectedRow, 8).toString());
+                city.setText(model.getValueAt(selectedRow, 9).toString());
             }
         });
 
@@ -170,6 +172,7 @@ private JButton updateEmployeeButton;
                     phoneNumber.setText("");
                     roadName.setText("");
                     postalCode.setText("");
+                    birthday.setText("");
                     city.setText("");
                 }
 
@@ -200,6 +203,7 @@ private JButton updateEmployeeButton;
                 roadName.setText("");
                 postalCode.setText("");
                 city.setText("");
+                birthday.setText("");
 
             }
         });
