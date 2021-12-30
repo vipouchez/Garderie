@@ -83,7 +83,7 @@ public class StudentMenu {
                 if (e.getSource() == addStudentButton) {
 
                     Student s = new Student();
-
+                    Group g = new Group();
                     s.setFirstName(firstName.getText());
                     s.setLastName(lastName.getText());
                     s.setFatherName(fatherName.getText());
@@ -96,7 +96,9 @@ public class StudentMenu {
                     s.getAddress().setPostalCode(Integer.parseInt(postalCode.getText()));
                     s.getAddress().setCity(city.getText());
                     s.setBirthday(LocalDate.now());
-                    s.getGroup().setName(group.getText()); //todo
+                    g.setName(group.getText());
+                    s.setGroup(g); //todo
+                   // s.getGroup().setName(group.getText()); //todo
 
                     dao.save(s);
                     model.addRow(new Object[]{s.getId(), s.getFirstName(), s.getLastName(), s.getFatherName(), s.getBirthday(),s.getMotherName(), s.getGrandFatherName(), s.getFatherCin(), s.getFatherPhoneNumber(),
@@ -150,7 +152,7 @@ public class StudentMenu {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == updateStudentButton) {
-
+                    Group g = new Group();
                     Student s = new Student();
                     s.setFirstName(firstName.getText());
                     s.setLastName(lastName.getText());
@@ -164,7 +166,10 @@ public class StudentMenu {
                     s.getAddress().setPostalCode(Integer.parseInt(postalCode.getText()));
                     s.getAddress().setCity(city.getText());
                     s.setBirthday(LocalDate.now());
-                    s.getGroup().setName(group.getText());
+
+                    g.setName(group.getText());
+                    s.setGroup(g);
+                   // s.getGroup().setName(group.getText());
 
                     //gets the student ID from the table and set it to the updating student parameters :
                     int selectedRow = table1.getSelectedRow();
