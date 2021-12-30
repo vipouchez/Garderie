@@ -1,6 +1,7 @@
 package vues;
 
 
+import dao.GroupDao;
 import dao.StudentDao;
 import models.Address;
 import models.Employee;
@@ -40,6 +41,7 @@ public class StudentMenu {
 
 
     StudentDao dao = StudentDao.getInstance();
+    GroupDao groupDao= GroupDao.getInstance();
     JFrame frame = new JFrame();
 
 
@@ -100,6 +102,16 @@ public class StudentMenu {
                     s.setGroup(g); //todo
                    // s.getGroup().setName(group.getText()); //todo
 
+
+                    List<Group> groups = new LinkedList<>();
+                    try {
+                        groups = groupDao.findAll();
+
+                    } catch (Exception exception) {
+                        exception.printStackTrace();
+                    }
+                    if (groups.contains(g.getName())){
+
                     dao.save(s);
                     model.addRow(new Object[]{s.getId(), s.getFirstName(), s.getLastName(), s.getFatherName(), s.getBirthday(),s.getMotherName(), s.getGrandFatherName(), s.getFatherCin(), s.getFatherPhoneNumber(),
                             s.getAddress().getPostalCode(), s.getAddress().getRoadName(), s.getAddress().getCity(),s.getGroup().getName()});
@@ -117,6 +129,10 @@ public class StudentMenu {
                     postalCode.setText("");
                     city.setText("");
                     group.setText("");
+
+                    }
+                    else
+                        JOptionPane.showMessageDialog(frame, "Group doesnt exist.");
 
                 }
             }

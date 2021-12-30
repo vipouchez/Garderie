@@ -36,7 +36,7 @@ public class GroupDao   {
     public List<Group> findAll() throws Exception{
         List<Group> result = new LinkedList<>();
 
-        String sql = "SELECT * FROM group";
+        String sql = "SELECT * FROM groups";
         try(Connection conn = DriverManager.getConnection(Config.DB_URL, Config.DB_USER, Config.DB_PASSWORD);
             PreparedStatement stmt = conn.prepareStatement(sql)){
             ResultSet rs = stmt.executeQuery(); // execute the database insert query
