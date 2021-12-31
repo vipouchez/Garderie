@@ -7,6 +7,10 @@ create table address (
 );
 
 
+
+
+
+
 create table groups(
     name varchar(30) primary key
 );
@@ -43,3 +47,10 @@ create table employee(
 
 
 
+create table activity(
+    id  int(6)  AUTO_INCREMENT primary key,
+    label varchar(30),
+    employee_id int(6),
+    group_id int(6),
+    foreign key(group_id) references groups(name)
+  );

@@ -2,27 +2,21 @@ package models;
 
 public class Activity {
 
-    private String code;
+    private String id;
     private String label;
     private Employee responsible;
-    private int chargePrice;
 
+    private Group group;
 
-    public int getChargePrice() {
-        return chargePrice;
+    public Group getGroup() {
+        return group;
     }
 
-    public void setChargePrice(int chargePrice) {
-        this.chargePrice = chargePrice;
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
-    public String getCode() {
-        return code;
-    }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
 
     public String getLabel() {
         return label;
@@ -40,29 +34,28 @@ public class Activity {
         this.responsible = responsible;
     }
 
-    public Activity(String code, String label, Employee responsible) {
-        this.code = code;
+    public Activity() {
+        this.id = id;
         this.label = label;
         this.responsible = responsible;
     }
 
 
     public String getId() {
-        return code;
+        return id;
     }
 
 
     public void setId(String id) {
-        this.code= id;
+        this.id= id;
     }
 
     @Override
     public String toString() {
         return "Activity{" +
-                "code='" + code + '\'' +
+                "id='" + id+ '\'' +
                 ", label='" + label + '\'' +
                 ", responsible=" + responsible +
-                ", chargePrice=" + chargePrice +
                 '}';
     }
 }

@@ -7,6 +7,7 @@ import models.Address;
 import models.Employee;
 import models.Group;
 import models.Student;
+import services.StudentService;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -232,7 +233,14 @@ public class StudentMenu {
                 String id;
                 id = model.getValueAt(selectedRow, 0).toString();
                 s.setId(Integer.parseInt(id));
-                dao.deleteById(s.getId());
+
+                StudentService studentService =StudentService.getInstance();
+                studentService.removeStudent(s.getId());
+
+
+               // dao.deleteById(s.getId()); //todo
+
+
                 ((DefaultTableModel) table1.getModel()).removeRow(selectedRow);
 
 
