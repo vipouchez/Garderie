@@ -114,7 +114,7 @@ public class TestClass {
         public  void should_add_group(){
             GroupDao dao = GroupDao.getInstance();
             Group g = new Group();
-            g.setName("4GI");
+            g.setName("55IP");
             dao.save(g);
         }
 

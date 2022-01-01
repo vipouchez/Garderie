@@ -52,6 +52,17 @@ public class Home extends JFrame {
                 dispose();
             }
         });
+        groupManagementButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    GroupMenu menu = new GroupMenu();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                dispose();
+            }
+        });
     }
 
 

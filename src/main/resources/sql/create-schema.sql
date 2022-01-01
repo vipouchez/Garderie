@@ -6,11 +6,6 @@ create table address (
     city varchar(30)
 );
 
-
-
-
-
-
 create table groups(
     name varchar(30) primary key
 );
@@ -51,6 +46,6 @@ create table activity(
     id  int(6)  AUTO_INCREMENT primary key,
     label varchar(30),
     employee_id int(6),
-    group_id int(6),
+    group_id varchar(30),
     foreign key(group_id) references groups(name)
   );

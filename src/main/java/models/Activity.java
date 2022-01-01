@@ -2,10 +2,9 @@ package models;
 
 public class Activity {
 
-    private String id;
+    private int id;
     private String label;
     private Employee responsible;
-
     private Group group;
 
     public Group getGroup() {
@@ -34,20 +33,12 @@ public class Activity {
         this.responsible = responsible;
     }
 
-    public Activity() {
-        this.id = id;
-        this.label = label;
-        this.responsible = responsible;
-    }
-
-
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-
-    public void setId(String id) {
-        this.id= id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
