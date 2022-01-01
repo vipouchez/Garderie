@@ -41,4 +41,9 @@ public class StudentService {
         dao.update(newStudent);
     }
 
+
+
+    public void deleteActivityByGroupId(String name){
+        dao.deleteByGroupId(name);
+    }
 }

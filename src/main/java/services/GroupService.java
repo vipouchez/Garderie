@@ -1,5 +1,6 @@
 package services;
 
+import dao.ActivityDao;
 import dao.GroupDao;
 import models.Activity;
 import models.Group;
@@ -90,7 +91,11 @@ public class GroupService {
     }
 
     public void removeGroup(String id)  {
+
+       activityService.deleteActivityByGroupId(id);
+       studentService.deleteActivityByGroupId(id);
         groupDao.deleteById(id);
+
     }
 
 }

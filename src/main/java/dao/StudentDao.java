@@ -150,6 +150,29 @@ public class StudentDao {
         }
     }
 
+
+
+    public boolean deleteByGroupId(String name) {
+        String sql = "DELETE FROM student WHERE group_id = ? ";
+        try (
+                Connection conn = DriverManager.getConnection(Config.DB_URL, Config.DB_USER, Config.DB_PASSWORD);
+                PreparedStatement stmt = conn.prepareStatement(sql);) {
+            stmt.setString(1, name);
+            stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+
+
+
+
+
+
     public boolean deleteById(int id) {
         Student s = findById(id);
         String sql = "DELETE FROM student WHERE id = ? ";

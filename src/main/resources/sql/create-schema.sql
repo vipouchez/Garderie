@@ -48,4 +48,6 @@ create table activity(
     employee_id int(6),
     group_id varchar(30),
     foreign key(group_id) references groups(name)
+    foreign key(employee_id) references employee(employee_id),
+
   );

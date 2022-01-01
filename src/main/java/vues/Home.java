@@ -63,6 +63,17 @@ public class Home extends JFrame {
                 dispose();
             }
         });
+        activityManagementButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    ActivityMenu activityMenu = new ActivityMenu();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                dispose();
+            }
+        });
     }
 
 

@@ -2,6 +2,7 @@ package vues;
 
 import dao.GroupDao;
 import models.Activity;
+import models.Group;
 import models.Student;
 import services.ActivityService;
 import services.GroupService;
@@ -16,7 +17,7 @@ import java.util.List;
 public class GroupMenu {
     private JPanel mainPanel;
     private JComboBox comboBox1;
-    private JTextField textField1;
+    private JTextField groupTextField;
     private JButton addGroupButton;
     private JTable activityTable;
     private JTable studentTable;
@@ -63,6 +64,35 @@ public class GroupMenu {
                 frame.dispose();
             }
         });
+        addGroupButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Group g = new Group();
+                g.setName(groupTextField.getText());
+                try {
+                    groupService.addGroup(g);
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+                JOptionPane.showMessageDialog(frame, "Group added successfully.");
+
+                //reset fields to 0 :
+                groupTextField.setText("");
+
+
+
+
+            }
+
+        });
+        removeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                groupService.removeGroup(groupTextField.getText());
+                JOptionPane.showMessageDialog(frame, "Group deleted successfully.");
+            }
+
+        });
     }
 
     private void fillActivityTable(String currentSelectedGroup) {
@@ -74,8 +104,11 @@ public class GroupMenu {
 
         for (int i = 0; i < activities.size(); i++) {
             Activity a = activities.get(i);
-            String responsableName = a.getResponsible().getLastName() + " " + a.getResponsible().getFirstName();
-            model.addRow(new Object[]{a.getId(), a.getLabel(), responsableName});
+            if(a.getGroup().getName().equals(currentSelectedGroup)){
+                String responsableName = a.getResponsible().getLastName() + " " + a.getResponsible().getFirstName();
+                model.addRow(new Object[]{a.getId(), a.getLabel(), responsableName});
+            }
+
         }
         activityTable.setModel(model);
     }

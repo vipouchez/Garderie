@@ -82,6 +82,24 @@ public class ActivityDao {
 
 
 
+
+    public boolean deleteByGroupId(String name) {
+        String sql = "DELETE FROM activity WHERE group_id = ? ";
+        try (
+                Connection conn = DriverManager.getConnection(Config.DB_URL, Config.DB_USER, Config.DB_PASSWORD);
+                PreparedStatement stmt = conn.prepareStatement(sql);) {
+            stmt.setString(1, name);
+            stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+
+
     public boolean deleteById(int id) {
         String sql = "DELETE FROM activity WHERE id = ? ";
         try (
@@ -118,6 +136,29 @@ public class ActivityDao {
             // then add the new created activity to the list of activities as follows:
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
+        }
+    }
+
+
+
+
+
+    public Activity update(Activity a) {
+
+        String sql = "UPDATE activity SET label=?, employee_id=?, group_id=? WHERE id=?";
+        try (Connection conn = DriverManager.getConnection(Config.DB_URL, Config.DB_USER, Config.DB_PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(sql);) {
+            stmt.setString(1, a.getLabel());
+            stmt.setInt(2, a.getResponsible().getId());
+            stmt.setString(3, a.getGroup().getName());
+            stmt.setString(4, String.valueOf(a.getId()));
+
+            stmt.executeUpdate();
+
+            return findById(a.getId());
+        } catch (SQLException ex) {
+            ex.printStackTrace();
             return null;
         }
     }
