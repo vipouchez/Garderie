@@ -155,8 +155,6 @@ public class ActivityMenu {
                     a.setId(Integer.parseInt(id));
 
 
-
-
                     //execute the update service :
                     activityService.updateActivity(a);
                     //deletes the row selected :

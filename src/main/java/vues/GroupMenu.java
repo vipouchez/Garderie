@@ -47,7 +47,7 @@ public class GroupMenu {
         comboBox1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(e.getActionCommand().equals("comboBoxChanged")){
+                if (e.getActionCommand().equals("comboBoxChanged")) {
                     String currentSelectedGroup = (String) comboBox1.getModel().getSelectedItem();
                     fillGroupTable(currentSelectedGroup);
                     fillActivityTable(currentSelectedGroup);
@@ -80,8 +80,6 @@ public class GroupMenu {
                 groupTextField.setText("");
 
 
-
-
             }
 
         });
@@ -104,7 +102,7 @@ public class GroupMenu {
 
         for (int i = 0; i < activities.size(); i++) {
             Activity a = activities.get(i);
-            if(a.getGroup().getName().equals(currentSelectedGroup)){
+            if (a.getGroup().getName().equals(currentSelectedGroup)) {
                 String responsableName = a.getResponsible().getLastName() + " " + a.getResponsible().getFirstName();
                 model.addRow(new Object[]{a.getId(), a.getLabel(), responsableName});
             }
@@ -114,22 +112,22 @@ public class GroupMenu {
     }
 
     private void fillGroupTable(String groupName) {
-            DefaultTableModel model = new DefaultTableModel();
-            model.setColumnIdentifiers(groupColumns);
-            studentTable.setModel(model);
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(groupColumns);
+        studentTable.setModel(model);
 
-            List<Student> students = null;
-            try {
-                students = studentService.getStudents();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            for (int i = 0; i < students.size(); i++) {
-                Student s = students.get(i);
-                if(s.getGroup().getName().equals(groupName)){
-                    model.addRow(new Object[]{s.getId(), s.getFirstName(), s.getLastName()});
-                }
-            }
-            studentTable.setModel(model);
+        List<Student> students = null;
+        try {
+            students = studentService.getStudents();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        for (int i = 0; i < students.size(); i++) {
+            Student s = students.get(i);
+            if (s.getGroup().getName().equals(groupName)) {
+                model.addRow(new Object[]{s.getId(), s.getFirstName(), s.getLastName()});
+            }
+        }
+        studentTable.setModel(model);
     }
+}

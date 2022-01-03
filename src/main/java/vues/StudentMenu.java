@@ -101,8 +101,8 @@ public class StudentMenu {
                     s.getAddress().setCity(city.getText());
                     s.setBirthday(LocalDate.now());
                     g.setName(group.getText());
-                    s.setGroup(g); //todo
-                    // s.getGroup().setName(group.getText()); //todo
+                    s.setGroup(g);
+                    // s.getGroup().setName(group.getText());
 
 
                     List<Group> groups = new LinkedList<>();
